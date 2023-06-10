@@ -5,12 +5,12 @@ import {MatChipsModule} from '@angular/material/chips';
  * @title Basic chips
  */
 @Component({
-  selector: 'chips-overview-example',
-  templateUrl: 'chips-overview-example.html',
+  selector: 'intro',
+  templateUrl: 'intro.component.html',
   standalone: true,
   imports: [MatChipsModule],
 })
-export class ChipsOverviewExample {}
+export class IntroComponent {}
 
 
 /**  Copyright 2023 Google LLC. All Rights Reserved.
