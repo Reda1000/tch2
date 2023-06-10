@@ -29,7 +29,7 @@ export class RostersService {
   getRoster(name: string): Observable<Roster> {
     if (!this.rosters)
       this.http.get(rosterCSV).subscribe((_) => {
-        console.log(_);
+        console.log(_); 
       });
     return this.rosters.asObservable().pipe(map((_) => _[name]));
   }
