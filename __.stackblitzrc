@@ -1,5 +1,4 @@
 {
   "installDependencies": true,
   "startCommand": "yarn start",
-  "editor.formatOnSave": false
 }
