@@ -1,0 +1,14 @@
+<ng-template #loadingTeams>
+  <div class="loading">
+    Lade Teams
+  </div>
+</ng-template>
+
+<ng-container *ngIf="(team$ | async) as team; else loadingTeams">
+  {{team | json}}
+  <div>
+    <div *ngFor="let athlet of team.athletes">
+      {{athlet | json}}
+    </div>
+  </div>
+</ng-container>

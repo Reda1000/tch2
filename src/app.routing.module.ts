@@ -8,7 +8,7 @@ import { RosterComponent } from './views/roster/roster.component';
   imports: [
     RouterModule.forRoot([
       { path: '', component: IntroComponent },
-      { path: 'roster', component: RosterComponent },
+      { path: 'roster/:id', component: RosterComponent },
       { path: '**', redirectTo: '' }
     ])
   ],

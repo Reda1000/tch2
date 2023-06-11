@@ -1,5 +1,5 @@
 <div class="intro">
-  <img src="assets/logo.jpg" />
+  <img src="https://stackblitz.com/files/tfwbd9/github/Reda1000/tch2/main/assets/WhatsApp-Image-2023-05-12-at-13.12.34.jpg" />
 </div>
 <div class="intro__news">
   <div class="intro__news__title">
@@ -57,6 +57,23 @@
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
           </mat-card-footer-->
         </mat-card>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<div class="intro__teams">
+  <div class="intro__teams__list">
+    <ng-template #loadingTeams>
+      <div class="loading">
+        Lade Teams
+      </div>
+    </ng-template>
+    <ng-container *ngIf="(teams$ | async) as teams; else loadingTeams">
+      <ng-container *ngFor="let team of teams">
+        <div class="intro__teams__list__item mat-elevation-z2" [ngStyle]="{'background-image': 'url('+team.avatar+')'}">
+          <mat-chip class="intro__teams__list__item__title">{{team.name}} - {{team.description}}</mat-chip>
+          <a class="intro__teams__list__item__route" color="primary" mat-flat-button [routerLink]="['/roster', team.name]">Zum Team</a>
+        </div>
       </ng-container>
     </ng-container>
   </div>

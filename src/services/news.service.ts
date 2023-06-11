@@ -19,7 +19,7 @@ export interface Event extends News {
 }
 
 const newsCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQQKGEi8Q1FhlYrgksANNQulHBwkMvh2FUi5Ti-4gTaj75CNKm2CHGCphMYgolmeFutZ8N5DFLPGqs_/pub?gid=918966204&single=true&output=tsv';
-const newsParser = (_: any) => ({
+const newsParser = (_: any): News => ({
   state: _.Status==='Aktiv' ? 'Active' : 'Inactive' as 'Active' | 'Inactive',
   date: new Date(_.Datum),
   title: _.Titel,
@@ -30,7 +30,7 @@ const newsParser = (_: any) => ({
 })
 
 const eventsCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQQKGEi8Q1FhlYrgksANNQulHBwkMvh2FUi5Ti-4gTaj75CNKm2CHGCphMYgolmeFutZ8N5DFLPGqs_/pub?gid=1081287064&single=true&output=tsv';
-const eventsParser = (_: any) => ({
+const eventsParser = (_: any): Event => ({
   ...newsParser(_),
   from: new Date(_.Von),
   to: new Date(_.Bis),

@@ -7,6 +7,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Event, News, NewsService } from 'src/services/news.service';
+import { RostersService } from 'src/services/roster.service';
+import { RouterModule } from '@angular/router';
 
 /**
  * @title Basic chips
@@ -16,17 +18,15 @@ import { Event, News, NewsService } from 'src/services/news.service';
   templateUrl: 'intro.component.html',
   styleUrls: ['./intro.component.css'],
   standalone: true,
-  imports: [MatChipsModule, MatCardModule, MatDividerModule, MatButtonModule, MatProgressBarModule, CommonModule, MatIconModule],
+  imports: [MatChipsModule, MatCardModule, MatDividerModule, MatButtonModule, MatProgressBarModule, CommonModule, MatIconModule, RouterModule],
   providers: [NewsService]
 })
 export class IntroComponent {
-  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-  originally bred for hunting.`;
   items$=this.news.getLatest();
+  teams$=this.roster.getTeams();
   filters: {[key: string]: boolean}={ 'news': true, 'events': true };
 
-  constructor(@Inject(NewsService) private news: NewsService) {}
+  constructor(@Inject(NewsService) private news: NewsService, @Inject(RostersService) private roster: RostersService) {}
 
   setFilter(filter: string) {
     this.filters[filter]=!this.filters[filter];
