@@ -1,22 +1,16 @@
 import { Component } from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'tch-app',
   template: `
-  <div class="container">
-    <!--a routerLinkActive="active" 
-       routerLink="/login">Login</a> |
-
-    <a routerLinkActive="active" 
-       routerLink="/home">Home</a> | 
-
-    <a routerLinkActive="active" 
-      routerLink="/catalog">Catalog</a--> 
-      
-    <router-outlet></router-outlet>
-  </div>
+    <!--div>Header</div-->
+    <div class="body"><router-outlet></router-outlet></div>
+    <div class="footer">
+      <button class="footer__legal_button" mat-raised-button color="primary">Datenschutz & Impressum</button>
+    </div>
   `,
-  styleUrls: [ './app.component.css' ]
+  styleUrls: [ './app.component.css' ],
 })
 export class AppComponent  {
 

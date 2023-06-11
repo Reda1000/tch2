@@ -1,9 +1,12 @@
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 html, body {
   height: 100%;
+  width: 100%;
+  background: #FAC291;
 }

@@ -1,10 +1,45 @@
-<mat-chip-listbox aria-label="Fish selection">
-  <mat-chip-option>One fish</mat-chip-option>
-  <mat-chip-option>Two fish</mat-chip-option>
-  <mat-chip-option color="accent" selected>Accent fish</mat-chip-option>
-  <mat-chip-option color="warn">Warn fish</mat-chip-option>
-</mat-chip-listbox>
-
-<!-- Copyright 2023 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at https://angular.io/license -->
+<div class="intro"></div>
+<div class="intro__news">
+  <div class="intro__news__title">
+    <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    &nbsp;
+    <h2 class="mat-subheading-2">Aktuelles</h2>
+    &nbsp; | &nbsp;
+    <!--mat-chip-listbox>
+      <mat-chip-option *ngFor="let filter of filters | keyvalue" [color]="{{filter[1] ? 'accent' : 'none'}}" highlighted>{{filter[0]}}</mat-chip-option>
+    </mat-chip-listbox-->
+  </div>
+  <div class="intro__news__list">
+    <ng-template #loading>
+      <div class="loading">
+        Lade Nachrichten
+      </div>
+    </ng-template>
+    <ng-container *ngIf="(items$ | async) as items; else loading">
+      <ng-container *ngFor="let item of items">
+        <mat-card class="intro__news__list__item">
+          <mat-card-header>
+            <div mat-card-avatar class="intro__news__list__item__avatar"><mat-icon>event</mat-icon></div>
+            <mat-card-subtitle>{{item.date ? (item.date | date) : 'test'}} {{$any(item).from | date}} - {{$any(item).to | date}}</mat-card-subtitle>
+            <mat-card-title>{{item.title}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="intro__news__list__item__body">
+            {{item.text}}
+            <!--mat-divider></mat-divider-->
+          </mat-card-content>
+          <mat-card-actions class="intro__news__list__item__action">
+            <mat-chip-listbox>
+              <mat-chip-option *ngFor="let roster of item.roster" selectable="false" color="accent" highlighted>{{roster}}</mat-chip-option>
+            </mat-chip-listbox>
+            <button mat-button>Mehr</button>
+          </mat-card-actions>
+          <!--mat-card-footer>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card-footer-->
+        </mat-card>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
