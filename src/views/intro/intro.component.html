@@ -19,21 +19,37 @@
     </ng-template>
     <ng-container *ngIf="(items$ | async) as items; else loading">
       <ng-container *ngFor="let item of items">
-        <mat-card class="intro__news__list__item">
+        <mat-card *ngIf="isEvent(item) as event" class="intro__news__list__item">
           <mat-card-header>
             <div mat-card-avatar class="intro__news__list__item__avatar"><mat-icon>event</mat-icon></div>
-            <mat-card-subtitle>{{item.date ? (item.date | date) : 'test'}} {{$any(item).from | date}} - {{$any(item).to | date}}</mat-card-subtitle>
-            <mat-card-title>{{item.title}}</mat-card-title>
+            <mat-card-subtitle>{{event.from | date}} - {{event.to | date}}</mat-card-subtitle>
+            <mat-card-title>{{event.title}}</mat-card-title>
           </mat-card-header>
           <mat-card-content class="intro__news__list__item__body">
-            {{item.text}}
+            {{event.text}}
+          </mat-card-content>
+          <mat-card-actions class="intro__news__list__item__action">
+            <mat-chip-listbox>
+              <mat-chip-option *ngFor="let roster of event.roster" selectable="false" color="accent" highlighted>{{roster}}</mat-chip-option>
+            </mat-chip-listbox>
+            <button mat-button>Mehr</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card *ngIf="isNews(item) as news" class="intro__news__list__item">
+          <mat-card-header>
+            <div mat-card-avatar class="intro__news__list__item__avatar"><mat-icon>newspaper</mat-icon></div>
+            <mat-card-subtitle>{{news.date | date}}</mat-card-subtitle>
+            <mat-card-title>{{news.title}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="intro__news__list__item__body">
+            {{news.text}}
             <!--mat-divider></mat-divider-->
           </mat-card-content>
           <mat-card-actions class="intro__news__list__item__action">
             <mat-chip-listbox>
-              <mat-chip-option *ngFor="let roster of item.roster" selectable="false" color="accent" highlighted>{{roster}}</mat-chip-option>
+              <mat-chip-option *ngFor="let roster of news.roster" selectable="false" color="accent" highlighted>{{roster}}</mat-chip-option>
             </mat-chip-listbox>
-            <button mat-button>Mehr</button>
+            <!--button mat-button>Mehr</button-->
           </mat-card-actions>
           <!--mat-card-footer>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>

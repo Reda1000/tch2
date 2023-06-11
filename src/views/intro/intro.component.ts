@@ -6,7 +6,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { NewsService } from 'src/services/news.service';
+import { Event, News, NewsService } from 'src/services/news.service';
 
 /**
  * @title Basic chips
@@ -33,10 +33,10 @@ export class IntroComponent {
   }
 
   isNews(data: any) {
-    return this.news.isNews(data);
+    return this.news.isNews(data) ? data : undefined;
   }
   isEvent(data: any) {
-    return this.news.isEvent(data);
+    return this.news.isEvent(data) ? data : undefined;
   }
 }
 

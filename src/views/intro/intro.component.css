@@ -1,5 +1,6 @@
 .intro {
-  background: white url('assets/logo.jpg') no-repeat center;
+  /*background: white url('assets/logo.jpg') no-repeat center;*/
+  background: white url('https://www.mtv-heide.de/wp-content/uploads/2023/04/WhatsApp-Image-2023-05-12-at-13.12.34.jpg') no-repeat center;
   background-size: contain;
   height: 20vh;
   min-height: 200px;
