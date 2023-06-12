@@ -5,10 +5,65 @@
 </ng-template>
 
 <ng-container *ngIf="(team$ | async) as team; else loadingTeams">
-  {{team | json}}
-  <div>
-    <div *ngFor="let athlet of team.athletes">
-      {{athlet | json}}
+  <div class="roster__team mat-elevation-z2">
+    <mat-list role="list" class="roster__team__coaches">
+      <div mat-subheader>Coaches</div>
+      <mat-divider></mat-divider>
+      <ng-container *ngFor="let coach of team.coaches">
+        <mat-list-item role="listitem" class="roster__team__coaches__item" (click)="openBottomSheet(coach)">
+          <img matListItemIcon class="roster__team__coaches__item__avatar" [src]="coach.avatar" />
+          <div matListItemTitle>{{coach.firstname}} {{coach.lastname}}</div>
+          <div matListItemLine>{{coach.role}} {{coach.birthdate | date}}</div>
+          <div matListItemLine>{{coach.description}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+    <mat-nav-list role="list" class="roster__team__athletes">
+      <div mat-subheader>Athleten</div>
+      <mat-divider></mat-divider>
+      <ng-container *ngFor="let athlet of team.athletes">
+        <mat-list-item role="listitem" class="roster__team__athletes__item" (click)="openBottomSheet(athlet)">
+          <img matListItemIcon class="roster__team__coaches__item__avatar" [src]="athlet.avatar" />
+          <div matListItemTitle>{{athlet.firstname}} {{athlet.lastname}}</div>
+          <div matListItemLine>{{athlet.role}} {{athlet.birthdate | date}}</div>
+          <div matListItemLine>{{athlet.description}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-nav-list>
+  </div>
+  <div class="roster__pane mat-elevation-z2" [ngStyle]="{'background-image': 'url('+team.avatar+')'}">
+    {{selected | json}}
+    <div *ngIf="(person$ | async) as person; else loadingTeams" class="roster__pane__bottom">
+      <img [src]="person.avatar" class="roster__pane__bottom__avatar" />
+      <div class="roster__pane__bottom__bio">
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListItemIcon>folder</mat-icon>
+            <div matListItemTitle>Name</div>
+            <div matListItemLine>{{person.firstname}} {{person.lastname}}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <mat-icon matListItemIcon>folder</mat-icon>
+            <div matListItemTitle>Rolle</div>
+            <div matListItemLine>{{person.role}}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <mat-icon matListItemIcon>folder</mat-icon>
+            <div matListItemTitle>Geburtstag</div>
+            <div matListItemLine>{{person.birthdate | date}}</div>
+          </mat-list-item>
+        </mat-list>
+        <div>
+          {{person.description}}
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="roster__assist">
+    {{team | json}}
   </div>
 </ng-container>

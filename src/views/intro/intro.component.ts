@@ -32,12 +32,8 @@ export class IntroComponent {
     this.filters[filter]=!this.filters[filter];
   }
 
-  isNews(data: any) {
-    return this.news.isNews(data) ? data : undefined;
-  }
-  isEvent(data: any) {
-    return this.news.isEvent(data) ? data : undefined;
-  }
+  isNews(data: any) { return this.news.isNews(data) ? data : undefined; }
+  isEvent(data: any) { return this.news.isEvent(data) ? data : undefined; }
 }
 
 

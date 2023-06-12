@@ -8,7 +8,6 @@ export interface Person {
   firstname: string;
   lastname: string;
   team: string;
-  age: number;  
   birthdate: Date;
   description: string;
   details: string;
@@ -16,7 +15,15 @@ export interface Person {
   avatar: string;
 }
 
-export interface Athlete extends Person {}
+export interface Athlete extends Person {
+  role: 'Flyer' | 'Base' | 'Back';
+}
+export interface Coach extends Person {
+  role: 'Coach';
+}
+export interface Team extends Person {
+  role: 'Team';
+}
 
 export interface Roster {
   name: string;
@@ -35,7 +42,6 @@ const personParser = (_: any): Person => ({
   lastname: _.Nachname,
   team: _.Team,
   role: _.Rolle,
-  age: _.Alter,
   avatar: _.Bild,
   description: _.Kurzbeschreibung,
   details: _.Beschreibung,
@@ -60,11 +66,14 @@ export class RostersService {
         .reduce((st, it, i) => { 
           if(!i) st.h=it; 
           else {
-            const temp = personParser(it.reduce((stt, it, i) => { if(st.h[i]) stt[st.h[i]]=it; return stt }, {} as any));
+            const temp = personParser(it.reduce((stt, it, i) => { if(st.h[i]) stt[st.h[i]]=it; return stt }, {} as any)) as Athlete | Coach | Team;
+            // initialize
             if(!st.data[temp.team]) st.data[temp.team]={ name: temp.team, avatar: '', birthdate: new Date(), description: '', details: '', coaches: [], athletes: []};
-            if(temp.role === 'Coach') st.data[temp.team].coaches.push(temp); 
-            if(temp.role === 'Team') st.data[temp.team]={...st.data[temp.team], avatar: temp.avatar, birthdate: temp.birthdate, description: temp.description, details: temp.details}; 
-            else st.data[temp.team].athletes.push(temp); 
+            // map members of roster
+            console.log('david', temp)
+            if(this.isTeam(temp)) { st.data[temp.team]={...st.data[temp.team], avatar: temp.avatar, birthdate: temp.birthdate, description: temp.description, details: temp.details} } 
+            else if(this.isCoach(temp)) st.data[temp.team].coaches.push(temp); 
+            else if(this.isAthlete(temp)) st.data[temp.team].athletes.push(temp); 
           }
           return st 
         }, { h: [] as string[], data: {} as { [name: string]: Roster } })
@@ -76,6 +85,17 @@ export class RostersService {
     this.loadTeam();
     return this.teams.asObservable().pipe(map((_) => _ && _[team]));
   }
+
+  isAthlete(t: any): t is Athlete {
+    return ['Flyer', 'Base', 'Back'].includes(t.role);
+  }
+  isCoach(t: any): t is Coach {
+    return t.role === 'Coach';
+  }
+  isTeam(t: any): t is Team {
+    return t.role === 'Team';
+  }
+
   getTeams(): Observable<Roster[]> {
     this.loadTeam();
     return this.teams.asObservable().pipe(map(_ => _ ? Object.values(_) : []));

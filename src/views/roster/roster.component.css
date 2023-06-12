@@ -1,3 +1,52 @@
 :host {
   display: flex;
+  margin: 0.5rem;
+  justify-content: stretch;
+  flex: 1;
+  max-height: calc(100vh - 1rem);
+}
+
+.roster__team {
+  flex: 0 25%;
+  max-width: 350px;
+  background: white;
+  margin: 0.5rem;
+  overflow: auto;
+}
+
+.roster__team__coaches__item__avatar {
+
+}
+
+.roster__pane {
+  flex: 1;
+  background: no-repeat;
+  background-size: cover;
+  margin: 0.5rem;
+  position: relative;
+}
+.roster__pane__bottom {
+  position: absolute;
+  background: white;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.roster__pane__bottom__avatar {
+  width: 200px;
+  height: 200px;
+  margin-top: -100px;
+  border-radius: 50%;
+}
+.roster__pane__bottom__bio {
+  display: flex;
+}
+
+.roster__assist {
+  flex: 0 25%;
+  background: white;
+  margin: 0.5rem;
 }
