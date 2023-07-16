@@ -3,16 +3,7 @@
   flex-direction: column;
   flex: 1;
 }
-.intro {
-  background: white url('https://cdn.jsdelivr.net/gh/Reda1000/tch2@main/assets/Untitled2.png') no-repeat center;
-  /*background: white url('https://www.mtv-heide.de/wp-content/uploads/2023/04/WhatsApp-Image-2023-05-12-at-13.12.34.jpg') no-repeat center;*/
-  background-size: cover;
-  height: 20vh;
-  min-height: 200px;
-  max-height: 250px;
-  display: flex;
-  justify-content: center;
-}
+
 .intro__news {
   margin: 0.5rem;
 }
