@@ -5,11 +5,10 @@
 }
 
 .intro__news {
-  margin: 0.5rem;
+  margin: 0 0.5rem;
 }
 .intro__news__title {
-  margin: 0.5rem;
-  margin-bottom: 0;
+  margin: 0 0.5rem;
   display: flex;
   align-items: center;
 }
@@ -35,7 +34,8 @@
   justify-content: center;
 }
 .intro__news__list__item__body {
-  flex: 1
+  flex: 1;
+  overflow: auto;
 }
 .intro__news__list__item__action {
   justify-content: space-between;

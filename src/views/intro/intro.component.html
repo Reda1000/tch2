@@ -5,12 +5,12 @@
     </button>
     &nbsp;
     <h2 class="mat-subheading-2">Aktuelles</h2>
-    &nbsp; | &nbsp;
+    <div style="flex: 1"></div>
     <!--mat-chip-listbox>
       <mat-chip-option *ngFor="let filter of filters | keyvalue" [color]="{{filter[1] ? 'accent' : 'none'}}" highlighted>{{filter[0]}}</mat-chip-option>
     </mat-chip-listbox-->
-    <a class="" color="primary" mat-flat-button [routerLink]="['/calender']">Kalender</a>
-    <a class="" color="primary" mat-flat-button [routerLink]="['/news']">News</a>
+    <a class="" color="primary" mat-flat-button [routerLink]="[]" [queryParams]="{popup: 'calender'}" >Kalender</a>&nbsp;
+    <a class="" color="primary" mat-flat-button [routerLink]="[]" [queryParams]="{popup: 'archive'}" >Archiv</a>
   </div>
   <div class="intro__news__list">
     <ng-template #loading>
@@ -26,14 +26,12 @@
             <mat-card-subtitle>{{event.from | date}} - {{event.to | date}}</mat-card-subtitle>
             <mat-card-title>{{event.title}}</mat-card-title>
           </mat-card-header>
-          <mat-card-content class="intro__news__list__item__body">
-            {{event.text}}
-          </mat-card-content>
+          <mat-card-content class="intro__news__list__item__body" [innerHTML]="event.text | markdown : { disableSanitizer: true } | async"></mat-card-content>
           <mat-card-actions class="intro__news__list__item__action">
             <mat-chip-listbox>
               <mat-chip-option *ngFor="let roster of event.roster" selectable="false" color="accent" highlighted>{{roster}}</mat-chip-option>
             </mat-chip-listbox>
-            <button mat-button>Mehr</button>
+            <button mat-button (click)="showMore(event.title)">Mehr</button>
           </mat-card-actions>
         </mat-card>
         <mat-card *ngIf="isNews(item) as news" class="intro__news__list__item">
@@ -42,10 +40,7 @@
             <mat-card-subtitle>{{news.date | date}}</mat-card-subtitle>
             <mat-card-title>{{news.title}}</mat-card-title>
           </mat-card-header>
-          <mat-card-content class="intro__news__list__item__body">
-            {{news.text}}
-            <!--mat-divider></mat-divider-->
-          </mat-card-content>
+          <mat-card-content class="intro__news__list__item__body" [innerHTML]="news.text | markdown : { disableSanitizer: true } | async"></mat-card-content>
           <mat-card-actions class="intro__news__list__item__action">
             <mat-chip-listbox>
               <mat-chip-option *ngFor="let roster of news.roster" selectable="false" color="accent" highlighted>{{roster}}</mat-chip-option>

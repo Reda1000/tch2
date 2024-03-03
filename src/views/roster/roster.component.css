@@ -11,7 +11,15 @@
   max-width: 350px;
   background: white;
   margin: 0.5rem;
-  overflow: auto;
+  overflow-x: auto;
+  overflow: visible;
+  position: relative;
+}
+
+.roster__team__attachment {
+  position: absolute;
+  width: 100px;
+  right: -80px;
 }
 
 .roster__team__coaches__item__avatar {
@@ -39,10 +47,16 @@
   width: 200px;
   height: 200px;
   margin-top: -100px;
+  border: 0.5rem solid white;
   border-radius: 50%;
+  background: white;
+  font-size: 200px;
 }
 .roster__pane__bottom__bio {
   display: flex;
+}
+.roster__pane__bottom__bio__details {
+  min-width: 300px;
 }
 
 .roster__assist {

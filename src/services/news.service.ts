@@ -4,11 +4,13 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 export interface News {
-  state: 'Active' | 'Inactive';
+  state: 'Active' | 'Archive' | 'Inactive';
   type: string;
   date: Date;
+  image: string;
   title: string;
-  location: Date;
+  location: string;
+  technical: string;
   roster: string[];
   text: string;
 }
@@ -18,12 +20,18 @@ export interface Event extends News {
   type: string;
 }
 
+/**
+Status	Datum	Titel	Ort	Roster	Thumbnail	Text
+Aktiv	06/24/2023	163. MTV-Geburtstag	MTV-Platz	Eclipse		Am 24.06.2023 haben wir uns das erste Mal beim 163. Geburtstag des MTV Heide präsentiert. Das Ziel bestand darin, allen zu zeigen, was Cheerleading ist und auf das erste Try out am 16.09.2023 hinzuweisen. Bei bestem Wetter konnten wir kleine Stunts zeigen und Interessierten Rede und Antwort stehen. Wir freuen uns darauf, euch bei uns begrüßen zu dürfen.
+ */
 const newsCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQQKGEi8Q1FhlYrgksANNQulHBwkMvh2FUi5Ti-4gTaj75CNKm2CHGCphMYgolmeFutZ8N5DFLPGqs_/pub?gid=918966204&single=true&output=tsv';
 const newsParser = (_: any): News => ({
-  state: _.Status==='Aktiv' ? 'Active' : 'Inactive' as 'Active' | 'Inactive',
+  state: _.Status==='Aktiv' ? 'Active' : _.Status==='Archiv' ? 'Archive' : 'Inactive' as 'Active' | 'Archive' | 'Inactive',
   date: new Date(_.Datum),
+  image: _.Thumbnail,
   title: _.Titel,
   location: _.Ort,
+  technical: _.TechOrt,
   roster: _.Roster.split(','),
   text: _.Text,
   type: 'News'
@@ -100,7 +108,6 @@ export class NewsService {
   getLatest(): Observable<(Event | News)[]> {
     this.loadLatest();
     return combineLatest([this.getEvents(), this.getNews()]).pipe(
-      tap(_ => console.log('david2', _)),
       map(([events, news]) => [...events.map(_ => ({..._, data: _.from})), ...news].sort((a, b) => (a.date.getDate() - b.date.getDate())))
     );
   }

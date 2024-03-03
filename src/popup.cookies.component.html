@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Cookies</h1>
+<mat-dialog-content style="display: flex; flex-direction: column">
+    <div [innerHTML]="description | markdown : { disableSanitizer: true } | async"></div>
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngIf="live$ | async as live; else other_content">
+            <mat-slide-toggle [checked]="live.value" (change)="setLive(!live.value)">Live-Content (via Google)</mat-slide-toggle>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="gmaps$ | async as gmaps; else other_content">
+            <mat-slide-toggle [checked]="gmaps.value" (change)="setGMaps(!gmaps.value)">Maps (via Google)</mat-slide-toggle>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="omaps$ | async as omaps; else other_content">
+            <mat-slide-toggle [checked]="omaps.value" (change)="setOMaps(!omaps.value)">Maps (via OpenMaps)</mat-slide-toggle>
+        </mat-list-item>
+    </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="deactivate()">Alle deaktivieren</button>
+</mat-dialog-actions>
+<ng-template #other_content><mat-spinner style="margin: 3rem auto;"></mat-spinner></ng-template>

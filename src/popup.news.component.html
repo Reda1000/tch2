@@ -1,0 +1,18 @@
+<mat-card class="example-card" style="display: flex; flex-direction: column" *ngIf="news$ | async as news; else other_content">
+    <mat-card-header>
+        <div mat-card-avatar><mat-icon style="margin: 0.5rem">event</mat-icon></div>
+        <mat-card-title>{{news.title}}</mat-card-title>
+        <mat-card-subtitle>{{news.from | date}}{{news.from.getDate() === news.to.getDate() ? undefined : news.to}} / {{news.location}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-md-image *ngIf="news.image" src="news.image" alt="Photo of a Shiba Inu">
+    <mat-card-content [innerHTML]="news.text | markdown : { disableSanitizer: true } | async" />
+    <mat-card-actions align="end">
+        <button mat-flat-button color="accent" (click)="mapsOpen(news)"><mat-icon>location_on</mat-icon>MAPS</button>
+        <mat-divider [vertical]="true" style="margin: 0 0.5rem; height: 1.5rem"></mat-divider>
+        <button mat-flat-button color="accent" (click)="bookmark(news)"><mat-icon>bookmark</mat-icon>Speichern</button>
+    </mat-card-actions>
+    <div *ngIf="maps$ | async as maps; else other_content">
+        <iframe [src]="maps" *ngIf="maps!=='empty'" style="border: none; width: 100%; height: 300px;"></iframe>
+    </div>
+</mat-card>
+<ng-template #other_content><mat-spinner style="margin: 3rem auto;"></mat-spinner></ng-template>

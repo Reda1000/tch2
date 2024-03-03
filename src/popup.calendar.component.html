@@ -1,0 +1,5 @@
+<h1 mat-dialog-title>IMPRESSUM</h1>
+<div mat-dialog-content 
+    [innerHTML]="(data.club.impressum || 'Kein Impressum gefunden.') | markdown : { disableSanitizer: true }">
+</div>
+<ng-template #other_content><mat-spinner style="margin: 3rem auto;"></mat-spinner></ng-template>

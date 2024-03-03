@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Archiv</h1>
+<div mat-dialog-content>
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap;" *ngIf="news$ | async as news; else other_content">
+        <mat-card style="display: flex; flex-direction: column; margin-bottom: 0.5rem;" *ngFor="let item of news">
+            <mat-card-header>
+                <div mat-card-avatar><mat-icon style="margin: 0.5rem">newspaper</mat-icon></div>
+                <mat-card-title>{{item.title}}</mat-card-title>
+                <mat-card-subtitle>{{item.date | date}} / {{item.location}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image *ngIf="item.image" [src]="item.image" alt="Photo of a Shiba Inu">
+            <mat-card-content [innerHTML]="item.text | markdown | async" />
+        </mat-card>
+    </div>
+</div>
+<ng-template #other_content>
+    <mat-spinner style="margin: 3rem auto;"></mat-spinner>
+    <p style="text-align: center">Lade Nachrichten</p>
+</ng-template>
